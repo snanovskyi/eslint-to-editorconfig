@@ -1,7 +1,7 @@
 {
   "name": "eslint-to-editorconfig",
   "description": "Module for transforming configuration from ESLint to EditorConfig format",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Sergei Nanovskyi <sunmille@gmail.com>",
   "bin": "bin.js",
   "bugs": {
