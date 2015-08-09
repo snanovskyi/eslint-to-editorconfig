@@ -9,7 +9,7 @@ function indentStyle (rules, props) {
     } else {
       props.push('indent_style = tab');
     }
-  } else if (rules.indent > 0) {
+  } else if (rules.indent !== undefined && rules.indent > 0) {
     properties.push('indent_style = space');
     indentSize(4, props);
   }
@@ -28,19 +28,19 @@ function charset(value, props) {
 }
 
 function trimTrailingWhitespace (rules, props) {
-  if (rules['no-trailing-spaces'] > 0) {
+  if (rules['no-trailing-spaces'] !== undefined && rules['no-trailing-spaces'] > 0) {
     props.push('trim_trailing_whitespace = true');
   }
 }
 
 function insertFinalNewline (rules, props) {
-  if (rules['eol-last'] > 0) {
+  if (rules['eol-last'] !== undefined && rules['eol-last'] > 0) {
     props.push('insert_final_newline = true');
   }
 }
 
 function maxLineLength (rules, props) {
-  if (rules['max-len'][0] > 0) {
+  if (rules['max-len'] !== undefined && rules['max-len'][0] > 0) {
     props.push('max_line_length = ' + rules['max-len'][1]);
   }
 }
