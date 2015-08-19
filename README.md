@@ -16,6 +16,12 @@ Run it in the same directory as your .eslintrc
 eslint-to-editorconfig
 ```
 
+You can also override properties
+
+```
+eslint-to-editorconfig root=false format='{js, jsx}' indent_size=4
+```
+
 ## Credits
 
 [@sunmille](https://twitter.com/sunmille)

@@ -1,14 +1,15 @@
 {
   "name": "eslint-to-editorconfig",
   "description": "Module for transforming configuration from ESLint to EditorConfig format",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "author": "Sergei Nanovskyi <sunmille@gmail.com>",
   "bin": "bin.js",
   "bugs": {
     "url": "https://github.com/sunmille/eslint-to-editorconfig/issues"
   },
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "eslint": "^1.1.0"
   },
   "homepage": "https://github.com/sunmille/eslint-to-editorconfig#readme",
   "keywords": [

@@ -1,99 +1,107 @@
-var fs = require('fs');
+'use strict';
+
+var CLIEngine = require('eslint').CLIEngine;
 require('colors');
 
-function indentStyle (rules, props) {
-  if (rules.indent instanceof Array && rules.indent[0] > 0) {
+function indentStyle(value, rules, props) {
+  var possible = ['tab', 'space'];
+  if (possible.indexOf(value) > -1) {
+    props['indent_style'] = value;
+  } else if (rules.indent instanceof Array && rules.indent[0] > 0) {
     if (rules.indent[1] !== 'tab') {
-      props.push('indent_style = space');
-      indentSize(rules.indent[1], props);
+      props['indent_style'] = 'space';
     } else {
-      props.push('indent_style = tab');
+      props['indent_style'] = 'tab';
     }
   } else if (rules.indent !== undefined && rules.indent > 0) {
-    properties.push('indent_style = space');
-    indentSize(4, props);
+    props['indent_style'] = 'space';
   }
 }
 
-function indentSize (value, props) {
-  props.push('indent_size = ' + value);
+function indentSize(value, rules, props) {
+  value = parseInt(value, 10);
+  if (!isNaN(value) && value > 0) {
+    props['indent_size'] = value;
+  } else if (rules.indent instanceof Array && rules.indent[0] > 0 &&
+    rules.indent[1] !== 'tab') {
+    props['indent_size'] = rules.indent[1];
+  } else if (rules.indent !== undefined && rules.indent > 0) {
+    props['indent_size'] = 4;
+  }
 }
 
 function endOfLine(value, props) {
-  props.push('end_of_line = ' + value);
+  var possible = ['lf', 'crlf', 'cr'];
+  if (possible.indexOf(value) > -1) {
+    props['end_of_line'] = value;
+  }
 }
 
 function charset(value, props) {
-  props.push('charset = ' + value);
-}
-
-function trimTrailingWhitespace (rules, props) {
-  if (rules['no-trailing-spaces'] !== undefined && rules['no-trailing-spaces'] > 0) {
-    props.push('trim_trailing_whitespace = true');
+  var possible = ['latin1', 'utf-8', 'utf-16be', 'utf-16le'];
+  if (possible.indexOf(value) > -1) {
+    props['charset'] = value;
   }
 }
 
-function insertFinalNewline (rules, props) {
-  if (rules['eol-last'] !== undefined && rules['eol-last'] > 0) {
-    props.push('insert_final_newline = true');
-  }
-}
-
-function maxLineLength (rules, props) {
-  if (rules['max-len'] !== undefined && rules['max-len'][0] > 0) {
-    props.push('max_line_length = ' + rules['max-len'][1]);
-  }
-}
-
-function getESlintRules (path) {
-  if (fs.existsSync(path)) {
-    var eslintrcFile = fs.readFileSync(path);
-    try {
-      var eslint = JSON.parse(eslintrcFile);
-      if (eslint.rules !== undefined) {
-        return eslint.rules;
-      } else {
-        console.log(path.bold + ' has no "rules"'.red);
-      }
-    } catch (e) {
-      console.log(e.toString().red);
+function trimTrailingWhitespace(value, rules, props) {
+  var possible = ['true', 'false'];
+  if (possible.indexOf(value) > -1) {
+    props['trim_trailing_whitespace'] = value === 'true';
+  } else if (rules['no-trailing-spaces'] !== undefined) {
+    if (rules['no-trailing-spaces'] > 0) {
+      props['trim_trailing_whitespace'] = true;
+    } else {
+      props['trim_trailing_whitespace'] = false;
     }
+  }
+}
+
+function insertFinalNewline(value, rules, props) {
+  var possible = ['true', 'false'];
+  if (possible.indexOf(value) > -1) {
+    props['insert_final_newline'] = value === 'true';
+  } else if (rules['eol-last'] !== undefined) {
+    if (rules['eol-last'] > 0) {
+      props['insert_final_newline'] = true;
+    } else {
+      props['insert_final_newline'] = false;
+    }
+  }
+}
+
+function maxLineLength(value, rules, props) {
+  value = parseInt(value, 10);
+  if (!isNaN(value) && value > 0) {
+    props['max_line_length'] = value;
+  } else if (rules['max-len'] !== undefined && rules['max-len'][0] > 0) {
+    props['max_line_length'] = rules['max-len'][1];
+  }
+}
+
+function getESlintRules() {
+  var cli = new CLIEngine();
+  return cli.getConfigForFile().rules;
+}
+
+function rulesToProps(config, rules, props) {
+  indentStyle(config['indent_style'], rules, props);
+  indentSize(config['indent_size'], rules, props);
+  endOfLine(config['end_of_line'], props);
+  charset(config['charset'], props);
+  trimTrailingWhitespace(config['trim_trailing_whitespace'], rules, props);
+  insertFinalNewline(config['insert_final_newline'], rules, props);
+  maxLineLength(config['max_line_length'], rules, props);
+}
+
+module.exports = function(config) {
+  var props = {};
+  var rules = getESlintRules();
+  if (Object.keys(rules).length !== 0) {
+    rulesToProps(config, rules, props);
+    return props;
   } else {
-    console.log(path.bold + ' not found'.red);
-  }
-}
-
-function rulesToProps (rules, props) {
-  indentStyle(rules, props);
-  endOfLine('lf', props);
-  charset('utf-8', props);
-  trimTrailingWhitespace(rules, props);
-  insertFinalNewline(rules, props);
-  maxLineLength(rules, props);
-}
-
-function propsToConfig (props) {
-  var editorconfig = 'root = true\n\n[*]\n';
-  props.forEach(function(prop) {
-    editorconfig += prop + '\n';
-  });
-  return editorconfig;
-}
-
-function createEditorConfig (path, props) {
-  fs.writeFile(path, propsToConfig (props), function (err) {
-    if (err) {
-      return console.log(err.toString().red);
-    }
-    console.log(path.bold + ' created'.green);
-  });
-}
-
-module.exports = function (eslintrcPath, editorconfigPath) {
-  var props = [];
-  var rules = getESlintRules(eslintrcPath);
-  if (rules !== undefined) {
-    rulesToProps(rules, props);
-    createEditorConfig(editorconfigPath, props);
+    console.log('.eslintrc'.bold + ' not found or it has no "rules"'.red);
+    return undefined;
   }
 };
