@@ -24,7 +24,7 @@ eslint-to-editorconfig root=false format='{js, jsx}' indent_size=4
 
 ## Credits
 
-[@sunmille](https://twitter.com/sunmille)
+[@sun1x](https://twitter.com/sun1x)
 
 ## License
 
