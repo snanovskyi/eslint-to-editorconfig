@@ -1,28 +1,29 @@
 {
   "name": "eslint-to-editorconfig",
+  "version": "1.1.1",
   "description": "Module for transforming configuration from ESLint to EditorConfig format",
-  "version": "1.1.0",
-  "author": "Sergei Nanovskyi <sunmille@gmail.com>",
-  "bin": "bin.js",
-  "bugs": {
-    "url": "https://github.com/sunmille/eslint-to-editorconfig/issues"
+  "main": "index.js",
+  "bin": {
+    "eslint-to-editorconfig": "bin.js"
   },
+  "preferGlobal": true,
   "dependencies": {
-    "colors": "^1.1.2",
-    "eslint": "^1.1.0"
+    "eslint": "^1.10.3"
   },
-  "homepage": "https://github.com/sunmille/eslint-to-editorconfig#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sun1x/eslint-to-editorconfig.git"
+  },
   "keywords": [
     "config",
     "configuration",
     "editorconfig",
     "eslint"
   ],
-  "license": "MIT",
-  "main": "index.js",
-  "preferGlobal": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sunmille/eslint-to-editorconfig.git"
-  }
+  "author": "Sergey Nanovsky <sergey.nanovsky@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sun1x/eslint-to-editorconfig/issues"
+  },
+  "homepage": "https://github.com/sun1x/eslint-to-editorconfig#readme"
 }
