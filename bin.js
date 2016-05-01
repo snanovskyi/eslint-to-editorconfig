@@ -3,18 +3,29 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 const transformer = require('./lib/transformer');
 
 function rulesToString(editorConfigRules) {
-  var config = '';
+  let config = '';
   const rules = Object.keys(editorConfigRules);
   rules.forEach((rule) => {
-    config += rule + ' = ' + editorConfigRules[rule] + '\n';
+    config += `${rule} = ${editorConfigRules[rule]}\n`;
   });
   return config;
 }
 
-const eslintRules = transformer.getEslintRules();
+function getEslintRules(filePath) {
+  let eslintRules;
+  if (path !== undefined) {
+    eslintRules = transformer.getEslintRules(path.resolve(filePath));
+  } else {
+    eslintRules = transformer.getEslintRules();
+  }
+  return eslintRules;
+}
+
+const eslintRules = getEslintRules(process.argv[2]);
 
 if (eslintRules !== undefined) {
   const editorConfigRules = transformer.convertRules(eslintRules);
@@ -22,7 +33,7 @@ if (eslintRules !== undefined) {
 
   fs.exists('.editorconfig', (exists) => {
     if (exists) {
-      rules = '\n[*.js]\n' + rules;
+      rules = `\n[*.js]\n${rules}`;
       fs.appendFile('.editorconfig', rules, (err) => {
         if (err) {
           return console.log(err.toString());
@@ -30,7 +41,7 @@ if (eslintRules !== undefined) {
         console.log('Properties were added to .editorconfig');
       });
     } else {
-      rules = 'root = true\n\n[*.js]\n' + rules;
+      rules = `root = true\n\n[*.js]\n${rules}`;
       fs.writeFile('.editorconfig', rules, (err) => {
         if (err) {
           return console.log(err.toString());

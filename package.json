@@ -1,14 +1,10 @@
 {
   "name": "eslint-to-editorconfig",
-  "version": "1.1.1",
+  "version": "1.1.6",
   "description": "Module for transforming configuration from ESLint to EditorConfig format",
   "main": "index.js",
   "bin": {
     "eslint-to-editorconfig": "bin.js"
-  },
-  "preferGlobal": true,
-  "dependencies": {
-    "eslint": "^1.10.3"
   },
   "repository": {
     "type": "git",
@@ -25,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/sun1x/eslint-to-editorconfig/issues"
   },
-  "homepage": "https://github.com/sun1x/eslint-to-editorconfig#readme"
+  "homepage": "https://github.com/sun1x/eslint-to-editorconfig#readme",
+  "dependencies": {
+    "eslint": "^2.9.0"
+  }
 }

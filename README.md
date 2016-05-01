@@ -1,48 +1,46 @@
 # eslint-to-editorconfig
-
 Module for transforming configuration from ESLint to EditorConfig format.
 
 ## Install
+You need to install it against your configs(locally or globally).
 
 ```
-$ npm install --global eslint-to-editorconfig
+$ npm install eslint-to-editorconfig
 ```
 
 ## Usage
 
-Run it in the same directory as your .eslintrc
+- Run it in the same directory as your .eslintrc
 
-```
-$ eslint-to-editorconfig
-```
+  ```
+  $ eslint-to-editorconfig
+  ```
+
+- You can also set custom path to your .eslintrc
+
+  ```
+  $ eslint-to-editorconfig ./folder/.eslintrc
+  ```
 
 ## API
+- **getEslintRules(filePath)**
 
-Basic workflow example:
+  Returns ESLint rules. You can pass custom path to ESLint config.
+
+- **convertRules(eslintRules)**
+
+  Return EditorConfig rules.
+
+## Example:
 
 ```javascript
-//Require it
+// Require it
 const transformer = require('eslint-to-editorconfig');
-
-//Get ESLint rules
+// Get ESLint rules
 const eslintRules = transformer.getEslintRules();
-
-//Transform them to EditorConfig rules
+// Transform them to EditorConfig rules
 const rules = transformer.convertRules(eslintRules);
 ```
 
-#### getEslintRules(filePath)
-
-Returns ESLint rules. You can pass custom path to ESLint config.
-
-#### convertRules(eslintRules)
-
-Return EditorConfig rules.
-
-## Credits
-
-[@sun1x](https://twitter.com/sun1x)
-
-## License
-
-ISC
+## Copyright
+ISC © [Sergey Nanovsky](https://twitter.com/sun1x)
