@@ -18,9 +18,9 @@ function rulesToString(editorConfigRules) {
 function getEslintRules(filePath) {
   let eslintRules;
   if (filePath !== undefined) {
-    eslintRules = transformer.getEslintRules(path.resolve(filePath));
+    eslintRules = transformer.getEslintRules(path.resolve(process.cwd(), filePath));
   } else {
-    eslintRules = transformer.getEslintRules();
+    eslintRules = transformer.getEslintRules(process.cwd());
   }
   return eslintRules;
 }
