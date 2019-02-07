@@ -1,0 +1,46 @@
+{
+  "name": "eslint-to-editorconfig",
+  "version": "2.0.0",
+  "description": "Module for transforming configuration from ESLint to EditorConfig format",
+  "main": "./lib/index.js",
+  "bin": {
+    "eslint-to-editorconfig": "./bin/cli.js"
+  },
+  "files": [
+    "bin/**/*.js",
+    "lib/**/*.js"
+  ],
+  "repository": "https://github.com/sun1x/eslint-to-editorconfig",
+  "author": "Serhii Nanovskyi <s.nanovskyi@gmail.com>",
+  "keywords": [
+    "config",
+    "configuration",
+    "editorconfig",
+    "eslint"
+  ],
+  "license": "ISC",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint '**/*.js'"
+  },
+  "dependencies": {
+    "import-from": "^2.1.0",
+    "yargs": "^12.0.5"
+  },
+  "peerDependencies": {
+    "eslint": ">=2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "5.3.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "execa": "^1.0.0",
+    "husky": "^1.3.0",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.1.3",
+    "memfs": "^2.14.2",
+    "prettier": "1.16.4"
+  }
+}

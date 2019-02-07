@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform should return EditorConfig rules 1`] = `
+Object {
+  "indent_size": 4,
+  "indent_style": "space",
+  "insert_final_newline": true,
+  "max_line_length": 80,
+  "trim_trailing_whitespace": true,
+}
+`;
+
+exports[`transform should return rules that are defined 1`] = `
+Object {
+  "indent_size": 4,
+  "indent_style": "space",
+  "max_line_length": 80,
+}
+`;

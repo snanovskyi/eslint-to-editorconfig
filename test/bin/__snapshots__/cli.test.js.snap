@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli should append rules if '.editorconfig' already exists 1`] = `
+"root = true
+[*.js]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80"
+`;
+
+exports[`cli should create new '.editorconfig' file if does not exist 1`] = `
+"[*.js]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80"
+`;
+
+exports[`cli should handle "stdout" option 1`] = `
+"indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80"
+`;
+
+exports[`cli should handle 'cwd' with absolute 'config' and 'output' 1`] = `
+"[*.js]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80"
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`editorconfig-helpers printRules should print rules to stdout 1`] = `
+Array [
+  Array [
+    "indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+trim_trailing_whitespace = true",
+  ],
+]
+`;
+
+exports[`editorconfig-helpers saveRules should append rules if config file exists 1`] = `
+"root = true
+[*.js]
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+trim_trailing_whitespace = true"
+`;
+
+exports[`editorconfig-helpers saveRules should correctly handle cwd 1`] = `
+"[*.js]
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+trim_trailing_whitespace = true"
+`;
+
+exports[`editorconfig-helpers saveRules should create new file if config file does not exist 1`] = `
+"[*.js]
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+trim_trailing_whitespace = true"
+`;
